@@ -1,8 +1,8 @@
 """把 agent_login.py / agent_login_keep.py 重新启动到当前用户的交互桌面会话（RustDesk 所在的会话），让浏览器窗口可见。
 
 - 由 temp/agent_login_triggers.py 通过 PYTHONSTARTUP 自动触发；也可在任意目录直接调用：
-      python scripts\\agent_session_helper.py --session      # 打印当前会话 / 交互会话 / 窗口站与桌面
-      python scripts\\agent_session_helper.py                # 在交互桌面会话里重新拉起 agent_login.py
+      python vpns_beer_agent\\scripts\\agent_session_helper.py --session      # 打印当前会话 / 交互会话 / 窗口站与桌面
+      python vpns_beer_agent\\scripts\\agent_session_helper.py                # 在交互桌面会话里重新拉起 agent_login.py
 - CLI 脚本可加 --console 跳过自动触发。
 """
 import csv

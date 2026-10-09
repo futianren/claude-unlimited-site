@@ -6,7 +6,7 @@ vpns.beer 代理平台（https://vpns.beer/agent/）登录脚本。
   2. 在页面上填入用户名/密码并点击"登录"按钮（和人工登录完全一样的行为）
   3. 登录接口 POST /api/agent/login 返回的 token 会写入浏览器
      sessionStorage/localStorage 的 covs_agent_session_token，以及隐藏框 #agentToken
-  4. 把 token + localStorage + Cookie 统一保存到 config/agent_session.json
+  4. 把 token + localStorage + Cookie 统一保存到 vpns_beer_agent/config/agent_session.json
      （storageState 里的 Cookie 由脚本自行写入，用来给会话有效期打时间戳）
 
 用法（在 RustDesk 可见的桌面里直接执行即可，窗口会自动弹在桌面上）：
@@ -14,7 +14,7 @@ vpns.beer 代理平台（https://vpns.beer/agent/）登录脚本。
   python scripts\agent_login.py                        # 用已保存的账号登录，token 失效自动重新登录
   python scripts\agent_login.py --check                # 只校验已保存的会话是否还有效
   python scripts\agent_login.py --debug                # 保留浏览器窗口，显示浏览器控制台日志
-  python scripts\agent_login.py --password "新密码"    # 手动更新 config/agent_session.json 里的密码
+  python scripts\agent_login.py --password "新密码"    # 手动更新 vpns_beer_agent/config/agent_session.json 里的密码
   python scripts\agent_login.py --console              # 强制在当前进程窗口里运行，不自动跳到交互桌面
 
 自动登录：已保存账号且 token 失效时，脚本会无头自动登录并刷新会话（不再弹窗口）。
@@ -149,7 +149,7 @@ def save_session(page, username: str, password: str, headless: bool) -> dict:
 
 def load_session() -> dict:
     if not SESSION_FILE.exists():
-        log(f"[错误] 未找到会话文件：{SESSION_FILE}，请先运行：python scripts/agent_login.py --save")
+        log(f"[错误] 未找到会话文件：{SESSION_FILE}，请先运行：python vpns_beer_agent/scripts/agent_login.py --save")
         sys.exit(1)
     return json.loads(SESSION_FILE.read_text(encoding="utf-8"))
 
@@ -221,7 +221,7 @@ def do_login(page, session: dict, headless: bool) -> dict:
         if page.locator("#loginMsg").count():
             msg = page.inner_text("#loginMsg")
         log(f"[错误] 登录失败，页面提示：{msg or '(无)'}")
-        log("       请在 config/agent_session.json 里检查 username / password 是否正确。")
+        log("       请在 vpns_beer_agent/config/agent_session.json 里检查 username / password 是否正确。")
         sys.exit(2)
     time.sleep(1.5)  # 等 /api/agent/me 等初始化请求完成
     return save_session(page, session["username"], session["password"], headless)
@@ -247,7 +247,7 @@ def do_manual_login(page, headless: bool, keep_open: bool) -> dict:
     log(f"[成功] 会话已保存  用户名：{username or '(未取到)'}  token：{mask(data['token'])}  cookie：{len(data['cookies'])} 个")
     if not data["password"]:
         log("[提示] 未能从登录请求里取到明文密码，token 已保存；以后免登录请运行：")
-        log("       python scripts/agent_login.py --password \"你的密码\"")
+        log("       python vpns_beer_agent/scripts/agent_login.py --password \"你的密码\"")
     if keep_open:
         log("[保持] 浏览器窗口将继续打开，可直接在上面操作。关闭本进程即可关掉浏览器。")
     return data
@@ -271,7 +271,7 @@ def main() -> None:
 
     # 在非交互会话（服务、计划任务、Claude Code 工具进程）里运行且需要弹窗时，先转到交互桌面
     if not args.console and (args.save or args.debug):
-        sys.path.insert(0, str(ROOT))
+        sys.path.insert(0, str(ROOT / "scripts"))  # agent_session_helper 与本脚本同级
         try:
             from agent_session_helper import relaunch_in_interactive_session
             relaunch_in_interactive_session()

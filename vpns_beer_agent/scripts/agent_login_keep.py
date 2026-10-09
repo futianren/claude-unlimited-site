@@ -1,5 +1,5 @@
 """
-只读查看器：从 config/agent_session.json 读取已保存的 token，打开浏览器窗口并进入已登录页面。
+只读查看器：从 vpns_beer_agent/config/agent_session.json 读取已保存的 token，打开浏览器窗口并进入已登录页面。
 
 - 不读取、不打印明文密码，不需要再输入账号密码。
 - 在 RustDesk 可见的桌面（会话 1）里运行：窗口会直接弹在桌面上。
@@ -16,9 +16,8 @@ import sys
 import time
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT / "scripts"))
+ROOT = Path(__file__).resolve().parents[1]  # vpns_beer_agent/（会话文件在 vpns_beer_agent/config/）
+sys.path.insert(0, str(ROOT / "scripts"))  # 与 agent_login.py / agent_session_helper.py 同级
 
 from playwright.sync_api import sync_playwright  # noqa: E402
 import agent_login as al  # noqa: E402
