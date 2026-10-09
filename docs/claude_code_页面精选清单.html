@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code 页面精选清单 · aiprimetech.io</title>
+<style>
+:root{
+  --paper:#F5F1E8; --paper2:#EFE9DC; --card:#FFFDF8; --ink:#1F1B15; --ink2:#6E6455; --line:#E1D8C6;
+  --accent:#7A2E1C; --t-a:#7A2E1C; --t-b:#2F4E6E; --t-c:#6E4C1C; --t-d:#3D5A44; --t-e:#6B2F5E; --t-f:#4A4F57; --t-s:#8A2F2F;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Songti SC","Noto Serif SC",Georgia,serif;
+  --sans:"Avenir Next","PingFang SC","Microsoft YaHei",system-ui,sans-serif; --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{--paper:#17150F; --paper2:#1D1A13; --card:#211E16; --ink:#EDE6D6; --ink2:#9B917E; --line:#373226; --accent:#E08A5F;
+    --t-a:#E08A5F; --t-b:#8FB4D9; --t-c:#D9B05A; --t-d:#8FBF9F; --t-e:#D9A0CE; --t-f:#AEB3BC; --t-s:#D98F8F}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);background-image:radial-gradient(rgba(120,90,40,.10) 1px,transparent 1px);background-size:22px 22px;color:var(--ink);font:15px/1.65 var(--sans)}
+a{color:var(--accent)}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px 80px}
+header{padding:44px 0 18px;border-bottom:2px solid var(--ink)}
+.kicker{font:600 11px/1 var(--mono);letter-spacing:.28em;text-transform:uppercase;color:var(--accent)}
+h1{font:700 clamp(28px,4vw,42px)/1.12 var(--serif);margin:12px 0 8px;letter-spacing:.01em}
+h1 em{font-style:normal;color:var(--accent)}
+.sub{color:var(--ink2);max-width:62ch}
+.meta{margin-top:14px;font:12px var(--mono);color:var(--ink2)}
+.razor{margin-top:10px;padding:8px 12px;border:1px dashed var(--line);border-radius:8px;background:color-mix(in srgb,var(--card) 70%,transparent);font-size:12.5px;color:var(--ink2)}
+.razor b{color:var(--ink)}
+.bar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:10px 0;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin-bottom:22px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink2);border-radius:999px;padding:4px 11px;font-size:12px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:5px}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.chip .dot{width:8px;height:8px;border-radius:2px;background:var(--c,var(--ink2))}
+.chip[aria-pressed=true]{background:var(--c,var(--accent));border-color:var(--c,var(--accent));color:#fff}
+.chip[aria-pressed=true] .dot{background:#fff}
+.spacer{flex:1}
+.count{font:12px var(--mono);color:var(--ink2)}
+.export{border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:6px;padding:5px 12px;font-size:12px;cursor:pointer;letter-spacing:.05em}
+.export.out{background:transparent;color:var(--accent)}
+.tier{margin:30px 0 10px;display:flex;align-items:baseline;gap:10px;border-top:1px solid var(--line);padding-top:14px}
+.tier .tag{font:700 11px var(--mono);letter-spacing:.2em;color:#fff;background:var(--c);padding:2px 7px;border-radius:3px}
+.tier h2{font:700 18px var(--serif);margin:0}
+.tier p{margin:0;color:var(--ink2);font-size:13px}
+.tier .n{margin-left:auto;font:12px var(--mono);color:var(--ink2);white-space:nowrap}
+.row{display:grid;grid-template-columns:24px minmax(0,1fr) 150px;gap:4px 12px;align-items:center;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--c);border-radius:10px;padding:9px 12px;margin-bottom:6px;transition:.15s;animation:rise .4s ease both}
+.row:hover{border-color:var(--accent);border-left-color:var(--c);transform:translateY(-1px);box-shadow:0 4px 14px rgba(60,40,10,.08)}
+.row.sel{background:color-mix(in srgb,var(--accent) 6%,var(--card));border-color:var(--accent);border-left-color:var(--c)}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}}
+.check{appearance:none;width:17px;height:17px;border:1.5px solid var(--ink2);border-radius:4px;cursor:pointer;display:grid;place-content:center;transition:.12s}
+.check:hover{border-color:var(--accent)}
+.check:checked{background:var(--accent);border-color:var(--accent)}
+.check:checked::after{content:"✓";color:#fff;font-size:11px;font-weight:700}
+.t1line{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;line-height:1.4}
+.title{font:600 15.5px/1.4 var(--serif)}
+.title a{text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+.title a:hover{border-bottom-color:var(--accent)}
+.num{font:11px var(--mono);color:var(--ink2)}
+.path{font:12px var(--mono);color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.line2{display:flex;align-items:center;gap:8px;margin-top:2px;min-width:0}
+.blurb{font-size:13.5px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1 1 auto;min-width:0}
+.badge{font:10.5px var(--mono);letter-spacing:.06em;border:1px solid var(--line);border-radius:4px;padding:0 5px;color:var(--ink2);white-space:nowrap;flex:none}
+.badge.zh{border-color:var(--t-d);color:var(--t-d);text-decoration:none;position:relative;top:-5px}
+.badge.zh:hover{background:var(--t-d);color:var(--paper)}
+.noteBox{display:flex;flex-direction:column;gap:3px;min-width:0}
+.noteBox label{font:10.5px var(--mono);letter-spacing:.1em;color:var(--ink2)}
+.noteBox textarea{width:100%;height:40px;resize:vertical;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);padding:4px 6px;font:12px/1.4 var(--sans)}
+.noteBox textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 15%,transparent)}
+.hide{display:none!important}
+footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);color:var(--ink2);font-size:12.5px}
+.toast{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:8px 16px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:.25s}
+.toast.on{opacity:1;bottom:22px}
+@media(max-width:760px){.row{grid-template-columns:24px 1fr;align-items:start}.noteBox{grid-column:2}.line2{flex-wrap:wrap}.blurb{white-space:normal}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="kicker">aiprimetech.io · 页面索引 · 2026-10-08 抓取</div>
+  <h1>Claude Code 页面<em>精选清单</em></h1>
+  <div class="sub">从 475 个 URL 里挑出 <b id="total"></b> 个页面，按"我们要写什么文章"分成六类：上手与日常、原理解释、成本控制、配置与扩展、排错手册、速查参考。每行给出可切入的文章角度。勾选你想精读的行，写下只要哪一段，留空即整篇。</div>
+  <div class="razor"><b>分类思路</b> · A 到 E 是按读者目的分的五个内容区：先学会用，再看懂原理，再省钱，再扩展，最后兜底排错。F 是写文章时的速查材料，不必单独成文。原理类（B）与成本类（C）最值得写成系列：前者解释"为什么"，后者给出"怎么做"。</div>
+  <div class="meta" id="meta"></div>
+</header>
+
+<div class="bar" id="bar">
+  <button class="chip" data-filter="all" aria-pressed="true">全部</button>
+  <button class="chip" data-filter="zh" aria-pressed="false"><span class="dot" style="--c:var(--t-d)"></span>仅中文版</button>
+  <span class="spacer"></span>
+  <span class="count" id="cnt"></span>
+  <button class="export" id="expSel">导出已勾选 CSV</button>
+  <button class="export out" id="expAll">导出全部</button>
+  <button class="export out" id="clear">清空</button>
+</div>
+
+<div id="rows"></div>
+
+<footer>
+  内容说明：所有页面均为第三方 API 网关站 aiprimetech.io 的内容，每页末尾带该站推广段落；作者自述文章由 AI 辅助起草，版本信息请对照官方文档核对。中文版路径规则：<span style="font-family:var(--mono)">/claude-code/zh/</span> 与 <span style="font-family:var(--mono)">/zh/learn/&lt;slug&gt;/</span>。
+</footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const DATA = [{"theme": "A", "url": "/blog/claude-code-auto-mode-vs-dangerously-skip-permissions/", "title": "Claude Code Auto Mode vs --dangerously-skip-permissions: Letting Claude Work Without Asking", "angle": "什么时候放手让 The 自己跑", "zh": "", "topic": "blog", "key": "p001"}, {"theme": "A", "url": "/blog/claude-code-plan-mode/", "title": "Claude Code Plan Mode: How to Use It and When It Saves Time and Tokens", "angle": "计划模式的适用场景", "zh": "", "topic": "blog", "key": "p002"}, {"theme": "A", "url": "/claude-code/tutorial/", "title": "Claude Code Tutorial — First Session, CLAUDE.md, Plan Mode, Permissions (2026)", "angle": "从安装到计划模式的完整上手", "zh": "", "topic": "claude-code", "key": "p003"}, {"theme": "A", "url": "/claude-code/zh/", "title": "Claude Code 怎么用：安装、教程、价格与国内使用指南（2026）", "angle": "中文版专站总入口：安装、配置、价格、教程四个子页", "zh": "", "topic": "claude-code", "key": "p004"}, {"theme": "A", "url": "/claude-code/zh/tutorial/", "title": "Claude Code 怎么用：使用教程、常用命令、换行与快捷键、第一次会话完整指南（2026）", "angle": "中文版上手流程，可直接改写成中文文章", "zh": "", "topic": "claude-code", "key": "p005"}, {"theme": "B", "url": "/blog/agent-cost-control/", "title": "Keeping Agent Loops From Burning Your API Budget | AI Prime Tech Blog", "angle": "agent 循环如何让成本非线性增长", "zh": "", "topic": "blog", "key": "p006"}, {"theme": "B", "url": "/blog/claude-code-token-overhead-startup/", "title": "Why Claude Code Sends 33k Tokens Before Your Prompt (And What to Do)", "angle": "启动时 33k token 的构成：工具 schema、环境上下文、内置技能", "zh": "", "topic": "blog", "key": "p007"}, {"theme": "B", "url": "/docs/guides/context-management/", "title": "Context management", "angle": "上下文窗口：N 轮对话为什么是 N² 成本，工具结果为什么是主要元凶", "zh": "", "topic": "docs", "key": "p008"}, {"theme": "B", "url": "/learn/anthropic-compatible-api/", "title": "What an Anthropic-Compatible API Means | AI Prime Tech", "angle": "兼容接口到底兼容了什么，切换前验哪几项", "zh": "", "topic": "learn", "key": "p009"}, {"theme": "B", "url": "/learn/anthropic-python-sdk/", "title": "Anthropic Python SDK: Install, base_url, Streaming, Async and Error Handling (2026) | AI Prime Tech", "angle": "官方 SDK 的调用链条", "zh": "", "topic": "learn", "key": "p010"}, {"theme": "B", "url": "/learn/claude-code-api-costs/", "title": "Claude Code Pricing Explained: API Costs, Plans & How to Cut Them | AI Prime Tech", "angle": "为什么 The 比聊天更烧 token：每轮重发全文", "zh": "", "topic": "learn", "key": "p011"}, {"theme": "B", "url": "/learn/how-to-reduce-claude-token-usage/", "title": "How to Reduce Claude Token Usage | AI Prime Tech", "angle": "先测量再优化：看到底发了什么", "zh": "", "topic": "learn", "key": "p012"}, {"theme": "B", "url": "/learn/openai-compatible-claude-api/", "title": "OpenAI-Compatible Claude API: Use Claude with the OpenAI SDK (base_url, Streaming, Tools) (2026) | AI Prime Tech", "angle": "接口形态：Messages 与 Chat Completions 差在哪", "zh": "/zh/learn/openai-compatible-claude-api/", "topic": "learn", "key": "p013"}, {"theme": "B", "url": "/learn/use-claude-api-with-langchain/", "title": "from langchain_anthropic import ChatAnthropic: Claude in LangChain with base_url, Streaming and Tools (2026) | AI Prime Tech", "angle": "框架怎么把请求送到自定义端点", "zh": "/zh/learn/use-claude-api-with-langchain/", "topic": "learn", "key": "p014"}, {"theme": "B", "url": "/learn/use-claude-api-with-vercel-ai-sdk/", "title": "Claude with the Vercel AI SDK (@ai-sdk/anthropic): baseURL, streamText and Errors (2026) | AI Prime Tech", "angle": "Vercel AI SDK 的 provider 配置", "zh": "", "topic": "learn", "key": "p015"}, {"theme": "C", "url": "/blog/prompt-caching-explained/", "title": "Prompt Caching, Explained: When It Saves Money and When It Does Not", "angle": "缓存命中规则与 TTL 的通俗版", "zh": "", "topic": "blog", "key": "p016"}, {"theme": "C", "url": "/docs/guides/cost-control/", "title": "Cost control", "angle": "输出 token 比输入贵 4 到 5 倍，四个真正有效的杠杆", "zh": "", "topic": "docs", "key": "p017"}, {"theme": "C", "url": "/docs/guides/prompt-caching/", "title": "Prompt caching", "angle": "缓存：稳定前缀以折扣价重读，怎么标记和验证", "zh": "", "topic": "docs", "key": "p018"}, {"theme": "C", "url": "/learn/cheapest-way-to-use-claude-api/", "title": "The Cheapest Way to Use the Claude API | AI Prime Tech", "angle": "降本方法汇总：选模型、缓存、限输出、治理用量", "zh": "/zh/learn/cheapest-way-to-use-claude-api/", "topic": "learn", "key": "p019"}, {"theme": "C", "url": "/learn/claude-api-pricing-explained/", "title": "Claude API Pricing Explained | AI Prime Tech", "angle": "按 token 计费的构成与估算方法", "zh": "/zh/learn/claude-api-pricing-explained/", "topic": "learn", "key": "p020"}, {"theme": "C", "url": "/learn/claude-api-vs-subscription/", "title": "Claude API vs Claude Pro/Max Subscription — Which to Choose | AI Prime Tech", "angle": "按量、订阅、不限量三种付费的取舍", "zh": "/zh/learn/claude-api-vs-subscription/", "topic": "learn", "key": "p021"}, {"theme": "C", "url": "/learn/unlimited-claude-code-usage/", "title": "Unlimited Claude Code Usage — No Token Limits | AI Prime Tech", "angle": "不限量与按量付费的切换阈值", "zh": "/zh/learn/unlimited-claude-code-usage/", "topic": "learn", "key": "p022"}, {"theme": "C", "url": "/tools/claude-api-cost-calculator/", "title": "Claude API Cost Calculator — Official vs Discounted Pricing (Oct 2026) | AI Prime Tech", "angle": "成本计算器的算法逻辑", "zh": "", "topic": "tools", "key": "p023"}, {"theme": "D", "url": "/blog/claude-code-agents-md-support/", "title": "Claude Code Now Reads AGENTS.md: CLAUDE.md vs AGENTS.md and the .claude Directory", "angle": "AGENTS.md 与 CLAUDE.md：多个工具共用一份项目约定", "zh": "", "topic": "blog", "key": "p024"}, {"theme": "D", "url": "/blog/claude-code-mcp-servers-setup-guide/", "title": "Claude Code MCP Servers: Setup, Configuration, and Security", "angle": "MCP 服务器实操与权限收紧", "zh": "", "topic": "blog", "key": "p025"}, {"theme": "D", "url": "/blog/claude-code-persistent-memory-across-sessions/", "title": "Persistent Memory for Claude Code: How Cross-Session Context Actually Works", "angle": "跨会话记忆的真实机制", "zh": "", "topic": "blog", "key": "p026"}, {"theme": "D", "url": "/blog/claude-code-router/", "title": "Claude Code Router: Run Claude Code on Other Models (and When a Gateway Is Simpler)", "angle": "让 The 跑在其他模型上", "zh": "", "topic": "blog", "key": "p027"}, {"theme": "D", "url": "/blog/everything-claude-code-ecc/", "title": "Everything Claude Code (ECC): What It Is, What 2.2.0 Changed, and How to Install It", "angle": "第三方增强包 ECC 做了什么", "zh": "", "topic": "blog", "key": "p028"}, {"theme": "D", "url": "/blog/gstack-claude-code-setup-guide/", "title": "gstack for Claude Code: What Its 23-Agent Workflow Actually Does", "angle": "gstack 的 23 智能体工作流", "zh": "", "topic": "blog", "key": "p029"}, {"theme": "D", "url": "/claude-code/hooks/", "title": "Claude Code Hooks Documentation — PreToolUse, PostToolUse, Stop: Examples & settings.json Reference (2026)", "angle": "钩子：在工具调用前后插入自己的逻辑", "zh": "", "topic": "claude-code", "key": "p030"}, {"theme": "D", "url": "/claude-code/mcp/", "title": "Claude Code MCP Servers — claude mcp add, Remote Servers, PostHog MCP, .mcp.json (2026)", "angle": "MCP：接外部工具与数据源", "zh": "", "topic": "claude-code", "key": "p031"}, {"theme": "D", "url": "/claude-code/skills/", "title": "Claude Code Skills & Plugins — Marketplace, Best Skills, Write Your Own (2026)", "angle": "技能：按触发规则加载的说明书", "zh": "", "topic": "claude-code", "key": "p032"}, {"theme": "D", "url": "/claude-code/subagents/", "title": "Claude Code Subagents Documentation — Custom Agents, .claude/agents, Agent Teams (2026)", "angle": "子代理：把独立任务分给专门角色", "zh": "", "topic": "claude-code", "key": "p033"}, {"theme": "D", "url": "/learn/use-claude-api-with-aider/", "title": "Aider with Claude on a Custom API Base: ANTHROPIC_API_BASE, .aider.conf.yml and Fixes (2026) | AI Prime Tech", "angle": "Aider 接入与 architect 模式", "zh": "", "topic": "learn", "key": "p034"}, {"theme": "D", "url": "/learn/use-claude-api-with-cline/", "title": "Unlimited Cline with the Claude API | AI Prime Tech", "angle": "Cline 接入配置与常见报错", "zh": "", "topic": "learn", "key": "p035"}, {"theme": "D", "url": "/learn/use-claude-api-with-codex/", "title": "Codex CLI Custom Provider Setup: config.toml for GPT and Claude Models (2026) | AI Prime Tech", "angle": "codex CLI 自定义 provider", "zh": "/zh/learn/use-claude-api-with-codex/", "topic": "learn", "key": "p036"}, {"theme": "D", "url": "/learn/use-claude-api-with-github-copilot/", "title": "GitHub Copilot Chat with Claude on Your Own Key: Custom Endpoint (BYOK) Setup in VS Code (2026) | AI Prime Tech", "angle": "Copilot 自定义端点与 agent 模式", "zh": "", "topic": "learn", "key": "p037"}, {"theme": "D", "url": "/learn/use-claude-api-with-jetbrains/", "title": "Unlimited Claude in JetBrains IDEs | AI Prime Tech", "angle": "JetBrains 通过 Continue 接入", "zh": "/zh/learn/use-claude-api-with-jetbrains/", "topic": "learn", "key": "p038"}, {"theme": "D", "url": "/learn/use-claude-api-with-opencode/", "title": "OpenCode Config for Claude: opencode.json Provider Setup, Models and Fixes (2026) | AI Prime Tech", "angle": "OpenCode 的 provider 配置", "zh": "/zh/learn/use-claude-api-with-opencode/", "topic": "learn", "key": "p039"}, {"theme": "D", "url": "/learn/use-claude-api-with-roo-code/", "title": "Unlimited Roo Code with the Claude API | AI Prime Tech", "angle": "Roo Code 接入配置", "zh": "", "topic": "learn", "key": "p040"}, {"theme": "D", "url": "/learn/use-claude-api-with-vscode/", "title": "Unlimited Claude in VS Code | AI Prime Tech", "angle": "VS Code 扩展接入", "zh": "", "topic": "learn", "key": "p041"}, {"theme": "E", "url": "/claude-code/errors/api-error-400/", "title": "API 错误 400", "angle": "400 坏请求的常见触发", "zh": "", "topic": "claude-code", "key": "p042"}, {"theme": "E", "url": "/claude-code/errors/api-error-500/", "title": "Claude Code API Error: 500 (Internal Server Error) — What It Means and How to Fix It (2026)", "angle": "服务端 500 的排查路径", "zh": "", "topic": "claude-code", "key": "p043"}, {"theme": "E", "url": "/claude-code/errors/auth-401-403/", "title": "鉴权失败 401 / 403", "angle": "鉴权失败：key 没设、设错或没生效", "zh": "", "topic": "claude-code", "key": "p044"}, {"theme": "E", "url": "/claude-code/errors/claude-ai-not-working/", "title": "Claude 服务不可用", "angle": "The 服务不可用时怎么判断是自己的问题", "zh": "", "topic": "claude-code", "key": "p045"}, {"theme": "E", "url": "/claude-code/errors/claude-code-hangs/", "title": "Claude Code Hangs, Stuck or Not Responding — Frozen Prompt, /rewind Hang, Stuck Retry Loop, High Memory & CPU (2026)", "angle": "命令卡住不动时怎么办", "zh": "", "topic": "claude-code", "key": "p046"}, {"theme": "E", "url": "/claude-code/errors/connection-lost/", "title": "Claude Code ECONNRESET, \"Connection Lost\", \"Waiting for API Response · Check Your Network\", \"Unable to Connect to API\" and Certificate Errors — Fixes (2026)", "angle": "连接中断的原因与恢复", "zh": "", "topic": "claude-code", "key": "p047"}, {"theme": "E", "url": "/claude-code/errors/oauth-error/", "title": "登录态 OAuth 错误", "angle": "登录态过期与重新登录", "zh": "", "topic": "claude-code", "key": "p048"}, {"theme": "E", "url": "/claude-code/errors/overloaded-529/", "title": "Claude Overloaded Error (API Error 529) — Why It Happens and How to Fix It (2026)", "angle": "529 过载与 429 限流的区别", "zh": "", "topic": "claude-code", "key": "p049"}, {"theme": "E", "url": "/claude-code/errors/process-exited-code-1/", "title": "进程异常退出", "angle": "进程异常退出", "zh": "", "topic": "claude-code", "key": "p050"}, {"theme": "E", "url": "/claude-code/errors/prompt-too-long/", "title": "Claude \"Prompt Is Too Long\" / \"Input Is Too Long for Requested Model\" / \"Context Limit Reached\" — Fixes (2026)", "angle": "上下文超限：窗口被什么填满，先看 /context 再处理", "zh": "", "topic": "claude-code", "key": "p051"}, {"theme": "E", "url": "/claude-code/errors/rate-limits/", "title": "速率限制与重试", "angle": "限流分类与退避重试", "zh": "", "topic": "claude-code", "key": "p052"}, {"theme": "E", "url": "/claude-code/errors/usage-limit-reached/", "title": "Claude \"Usage Limit Reached\", \"Weekly Limit\", \"Specified API Usage Limits\" and \"Credit Balance Is Too Low\" — What Each Means (2026)", "angle": "各类限额提示各对应哪个计量窗口", "zh": "", "topic": "claude-code", "key": "p053"}, {"theme": "E", "url": "/docs/getting-started/authentication/", "title": "Authentication", "angle": "鉴权方式与密钥管理", "zh": "", "topic": "docs", "key": "p054"}, {"theme": "E", "url": "/docs/getting-started/base-urls/", "title": "Base URLs", "angle": "各种 SDK 各该填哪个 base URL，404 形态反推错误", "zh": "", "topic": "docs", "key": "p055"}, {"theme": "E", "url": "/docs/guides/api-key-configuration/", "title": "API key configuration by tool", "angle": "key 配置位置与泄露防范", "zh": "", "topic": "docs", "key": "p056"}, {"theme": "E", "url": "/docs/guides/troubleshooting/", "title": "Troubleshooting", "angle": "通用排错流程", "zh": "", "topic": "docs", "key": "p057"}, {"theme": "E", "url": "/learn/claude-api-errors-troubleshooting/", "title": "Claude Server Error? Every Claude API Error Explained — 400, 429 Rate Limit, 500, 529 Overloaded, and How to Fix Each | AI Prime Tech", "angle": "400、429、500、529 四类错误的生产级重试逻辑", "zh": "", "topic": "learn", "key": "p058"}, {"theme": "F", "url": "/blog/claude-code-max-output-tokens/", "title": "CLAUDE_CODE_MAX_OUTPUT_TOKENS Explained: Output Limits and Plugin Folders in Claude Code 2.1.265", "angle": "输出上限参数的影响", "zh": "", "topic": "blog", "key": "p059"}, {"theme": "F", "url": "/blog/claude-code-system-prompt-lessons/", "title": "Claude Code System Prompt: Engineering Lessons for Agent Builders", "angle": "从系统提示词提炼的 agent 设计经验", "zh": "", "topic": "blog", "key": "p060"}, {"theme": "F", "url": "/blog/rate-limits-and-retries/", "title": "Handling Rate Limits and Retries on LLM APIs | AI Prime Tech Blog", "angle": "客户端重试与退避实现细节", "zh": "", "topic": "blog", "key": "p061"}, {"theme": "F", "url": "/blog/reduce-llm-token-usage/", "title": "Engineering Lower Token Usage Without Hurting Quality", "angle": "更广义的 token 削减策略", "zh": "", "topic": "blog", "key": "p062"}, {"theme": "F", "url": "/blog/streaming-api-guide/", "title": "Streaming LLM Responses: Why It Matters for UX and Cost", "angle": "流式响应要点与坑", "zh": "", "topic": "blog", "key": "p063"}, {"theme": "F", "url": "/docs/api-reference/messages/", "title": "Messages API", "angle": "Messages API 参数参考", "zh": "", "topic": "docs", "key": "p064"}, {"theme": "F", "url": "/docs/api-reference/streaming/", "title": "Streaming", "angle": "流式接口参数参考", "zh": "", "topic": "docs", "key": "p065"}, {"theme": "F", "url": "/docs/api-reference/tool-use/", "title": "Tool use and function calling", "angle": "工具调用参数参考", "zh": "", "topic": "docs", "key": "p066"}, {"theme": "F", "url": "/docs/guides/best-practices/", "title": "Production best practices", "angle": "可靠、成本、安全、可观测的官方清单", "zh": "", "topic": "docs", "key": "p067"}, {"theme": "F", "url": "/docs/guides/claude-code/", "title": "Claude Code", "angle": "The 指向自定义端点的两行配置", "zh": "", "topic": "docs", "key": "p068"}, {"theme": "F", "url": "/docs/guides/mcp-servers/", "title": "MCP servers for Claude Code", "angle": "网关侧 MCP 配置", "zh": "", "topic": "docs", "key": "p069"}, {"theme": "F", "url": "/learn/claude-api-models-compared/", "title": "Claude Models Explained 2026 — Claude Model Comparison: Claude Opus vs Sonnet vs Haiku vs Fable, Anthropic Model Names & Prices | AI Prime Tech", "angle": "模型家族对比与适用场景", "zh": "/zh/learn/claude-api-models-compared/", "topic": "learn", "key": "p070"}, {"theme": "F", "url": "/learn/claude-api-vs-anthropic-direct/", "title": "Claude API Gateway vs. Anthropic Direct | AI Prime Tech", "angle": "网关与官方直连的差异", "zh": "/zh/learn/claude-api-vs-anthropic-direct/", "topic": "learn", "key": "p071"}, {"theme": "F", "url": "/models/", "title": "Claude models, GPT models and API model names", "angle": "各模型上下文窗口与价格速查", "zh": "", "topic": "首页", "key": "p072"}, {"theme": "F", "url": "/tools/claude-api-rate-limits/", "title": "Claude API Rate Limits Explained — RPM, TPM & Concurrency (Oct 2026) | AI Prime Tech", "angle": "RPM、TPM、并发三个维度", "zh": "", "topic": "tools", "key": "p073"}, {"theme": "F", "url": "/tools/claude-model-selector/", "title": "Which Claude Model Should You Use? Opus vs Sonnet vs Haiku (Oct 2026) | AI Prime Tech", "angle": "按任务选 Opus、Sonnet 还是 Haiku", "zh": "", "topic": "tools", "key": "p074"}, {"theme": "S", "url": "/plans/", "title": "Unlimited Claude API Plans — Pricing | AI Prime Tech", "angle": "不限量套餐总览。", "zh": "", "topic": "plans", "key": "p075"}, {"theme": "S", "url": "/plans/unlimited-claude-api-1-hour/", "title": "Unlimited Claude API — 1 hour for $1 | AI Prime Tech", "angle": "一美元一小时档。", "zh": "", "topic": "plans", "key": "p076"}, {"theme": "S", "url": "/plans/unlimited-claude-api-24-hours/", "title": "Unlimited Claude API — 24 hours for $10 | AI Prime Tech", "angle": "十美元一天档。", "zh": "", "topic": "plans", "key": "p077"}, {"theme": "S", "url": "/plans/unlimited-claude-api-1-week/", "title": "Unlimited Claude API — 1 week for $49 | AI Prime Tech", "angle": "四十九美元一周档。", "zh": "", "topic": "plans", "key": "p078"}, {"theme": "S", "url": "/plans/unlimited-claude-api-15-days/", "title": "Unlimited Claude API — 15 days for $89 | AI Prime Tech", "angle": "八十九美元十五天档。", "zh": "", "topic": "plans", "key": "p079"}, {"theme": "S", "url": "/topup/", "title": "Buy Claude API Credits — $13 = $100 Usage, Up to 87% Off | AI Prime Tech", "angle": "充值首页。", "zh": "", "topic": "topup", "key": "p080"}, {"theme": "S", "url": "/topup/claude-api-credits-38-usd/", "title": "$38.45 Claude API Credits for $5 | AI Prime Tech", "angle": "五美元充值页。", "zh": "", "topic": "topup", "key": "p081"}, {"theme": "S", "url": "/topup/claude-api-credits-76-usd/", "title": "$76.90 Claude API Credits for $10 | AI Prime Tech", "angle": "十美元充值页。", "zh": "", "topic": "topup", "key": "p082"}, {"theme": "S", "url": "/topup/claude-api-credits-192-usd/", "title": "$192.25 Claude API Credits for $25 | AI Prime Tech", "angle": "二十五美元充值页。", "zh": "", "topic": "topup", "key": "p083"}, {"theme": "S", "url": "/topup/claude-api-credits-384-usd/", "title": "$384.50 Claude API Credits for $50 | AI Prime Tech", "angle": "五十美元充值页。", "zh": "", "topic": "topup", "key": "p084"}, {"theme": "S", "url": "/topup/claude-api-credits-769-usd/", "title": "$769 Claude API Credits for $100 | AI Prime Tech", "angle": "一百美元充值页。", "zh": "", "topic": "topup", "key": "p085"}, {"theme": "S", "url": "/business/", "title": "企业账户", "angle": "企业账户介绍。", "zh": "", "topic": "business", "key": "p086"}, {"theme": "S", "url": "/partner/", "title": "联盟与分销计划", "angle": "联盟与分销计划。", "zh": "", "topic": "partner", "key": "p087"}];
+const KEY = "aiprimetech.selection.v3";
+const $ = s => document.querySelector(s);
+const esc = s => (s||"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let state = {};
+try { state = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { state = {}; }
+let filter = "all";
+const T = {A:["A","上手与日常","命令、会话、工作流，读者装好就能用"],B:["B","原理解释","把黑箱打开：上下文、token、缓存、限流到底怎么回事"],C:["C","成本控制","账单从哪来、怎么量、怎么压"],D:["D","配置与扩展","hooks、subagents、skills、MCP、模型切换"],E:["E","排错手册","按报错信息查，一次一个问题"],F:["F","速查参考","速查表与参数参考，写文章时按需引用"],S:["S","可跳过","模板化售卖页，只有价格不同"]};
+const ORDER = ["A","B","C","D","E","F","S"];
+$("#total").textContent = DATA.length;
+$("#meta").textContent = "共 " + DATA.length + " 行 · " + DATA.filter(x=>x.zh).length + " 行有现成中文版 · /claude-code/errors/ 与 /docs/ 无中文版";
+document.querySelector(".bar .chip[data-filter=all]").insertAdjacentHTML("afterend", ORDER.map(t => '<button class="chip" data-filter="'+t+'" aria-pressed="false"><span class="dot" style="--c:var(--t-'+t.toLowerCase()+')"></span>'+T[t][1]+'</button>').join(""));
+
+$("#rows").innerHTML = ORDER.map(t => {
+  const head = '<div class="tier" data-theme="'+t+'" style="--c:var(--t-'+t.toLowerCase()+')"><span class="tag">'+t+'</span><h2>'+T[t][1]+'</h2><p>'+T[t][2]+'</p><span class="n"></span></div>';
+  const rows = DATA.map((it, idx) => { if (it.theme !== t) return "";
+    const zh = it.zh ? '<a class="badge zh" href="https://aiprimetech.io'+it.zh+'" target="_blank" rel="noopener">中文</a>' : '';
+    return '<div class="row" data-theme="'+t+'" data-key="'+it.key+'" style="--c:var(--t-'+t.toLowerCase()+');animation-delay:'+Math.min(idx,40)*12+'ms">'
+      + '<input type="checkbox" class="check" id="'+it.key+'_c" aria-label="选择 '+esc(it.url)+'">'
+      + '<div><div class="t1line"><a class="title" href="https://aiprimetech.io'+it.url+'" target="_blank" rel="noopener">'+esc(it.title||it.url)+'</a>'
+      + zh + '<span class="path">'+esc(it.url)+'</span><span class="num">'+String(idx+1).padStart(2,'0')+'</span></div>'
+      + '<div class="line2"><span class="blurb">'+esc(it.angle)+'</span><span class="badge">'+esc(it.topic)+'</span></div></div>'
+      + '<div class="noteBox"><label for="'+it.key+'_n">备注 · 留空即全篇</label><textarea id="'+it.key+'_n" placeholder="例如：只看第 3 节"></textarea></div>'
+      + '</div>';
+  }).join("");
+  return head + rows;
+}).join("");
+
+function save(){ localStorage.setItem(KEY, JSON.stringify(state)); }
+function applyFilter(){
+  let shown = 0; const themes = {};
+  document.querySelectorAll(".row").forEach(r => {
+    const it = DATA.find(x => x.key === r.dataset.key);
+    const ok = filter === "all" ? true : filter === "zh" ? !!it.zh : r.dataset.theme === filter;
+    r.classList.toggle("hide", !ok); if (ok) shown++;
+    if (ok) themes[r.dataset.theme] = (themes[r.dataset.theme]||0) + 1;
+  });
+  document.querySelectorAll(".tier").forEach(t => { const n = t.querySelector(".n"); if (n) n.textContent = (themes[t.dataset.theme]||0) + " 页"; t.classList.toggle("hide", !themes[t.dataset.theme]); });
+  let sel = 0; for (const it of DATA) if (state[it.key] && state[it.key].checked) sel++;
+  $("#cnt").textContent = "显示 " + shown + " / " + DATA.length + " 行 · 已勾选 " + sel;
+}
+function sync(){
+  for (const it of DATA){
+    const s = state[it.key] || {};
+    const c = $("#"+it.key+"_c"), t = $("#"+it.key+"_n");
+    if (c.checked !== !!s.checked) c.checked = !!s.checked;
+    if (t.value !== (s.note||"")) t.value = s.note || "";
+    c.closest(".row").classList.toggle("sel", !!s.checked);
+  }
+  applyFilter();
+}
+document.addEventListener("change", e => { if (e.target.classList.contains("check")){ const k = e.target.closest(".row").dataset.key; state[k] = Object.assign(state[k]||{}, {checked:e.target.checked}); save(); sync(); }});
+document.addEventListener("input", e => { if (e.target.tagName === "TEXTAREA"){ const k = e.target.closest(".row").dataset.key; state[k] = Object.assign(state[k]||{}, {note:e.target.value}); save(); }});
+document.querySelectorAll(".chip[data-filter]").forEach(b => b.onclick = () => { filter = b.dataset.filter; document.querySelectorAll(".chip[data-filter]").forEach(x => x.setAttribute("aria-pressed", x === b)); applyFilter(); });
+$("#clear").onclick = () => { if (confirm("清空所有勾选与备注？")){ state = {}; save(); sync(); toast("已清空"); } };
+function toast(m){ const t = $("#toast"); t.textContent = m; t.classList.add("on"); setTimeout(() => t.classList.remove("on"), 1600); }
+function csv(only){
+  const rows = [["序号","主题","标题","页面地址","中文镜像","可切入的文章角度","板块","勾选","备注"]];
+  DATA.forEach((it, i) => { const s = state[it.key]||{}; if (only && !s.checked) return;
+    rows.push([i+1, T[it.theme][1], it.title, "https://aiprimetech.io"+it.url, it.zh?"https://aiprimetech.io"+it.zh:"", it.angle, it.topic, s.checked?"是":"", s.note||""]); });
+  const text = "﻿" + rows.map(r => r.map(v => '"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\r\n");
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], {type:"text/csv;charset=utf-8"}));
+  a.download = "claude_code_页面清单" + (only ? "_已勾选" : "_全部") + ".csv"; a.click(); toast(only ? "已导出已勾选行" : "已导出全部行");
+}
+$("#expSel").onclick = () => csv(true);
+$("#expAll").onclick = () => csv(false);
+sync();
+</script>
+</body>
+</html>
